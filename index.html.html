@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Aplikasi Hitung Sampel dan Error</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .container {
+            width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        h3 {
+            color: #34495e;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .hasil {
+            margin-top: 15px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        hr {
+            margin: 25px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Aplikasi Perhitungan Jumlah Sampel & Error (Slovin)</h2>
+
+<h3>1. Hitung Jumlah Sampel</h3>
+
+<label>Jumlah Populasi (N)</label>
+<input type="number" id="N1" placeholder="Contoh: 120">
+
+<label>Margin of Error (e)</label>
+<input type="number" step="0.01" id="e1" placeholder="Contoh: 0.05">
+
+<button onclick="hitungSample()">Hitung Sampel</button>
+
+<div class="hasil" id="hasilSample"></div>
+
+<hr>
+
+<h3>2. Hitung Margin of Error</h3>
+
+<label>Jumlah Populasi (N)</label>
+<input type="number" id="N2" placeholder="Contoh: 120">
+
+<label>Jumlah Sampel (n)</label>
+<input type="number" id="n2" placeholder="Contoh: 92">
+
+<button onclick="hitungError()">Hitung Error</button>
+
+<div class="hasil" id="hasilError"></div>
+
+</div>
+
+<script>
+function hitungSample() {
+    let N = document.getElementById("N1").value;
+    let e = document.getElementById("e1").value;
+
+    if (N === "" || e === "") {
+        alert("Mohon isi semua data!");
+        return;
+    }
+
+    let n = N / (1 + N * (e * e));
+
+    document.getElementById("hasilSample").innerHTML =
+        "Jumlah sampel yang dibutuhkan adalah: " + Math.round(n);
+}
+
+function hitungError() {
+    let N = document.getElementById("N2").value;
+    let n = document.getElementById("n2").value;
+
+    if (N === "" || n === "") {
+        alert("Mohon isi semua data!");
+        return;
+    }
+
+    let e = Math.sqrt((N - n) / (n * N));
+
+    document.getElementById("hasilError").innerHTML =
+        "Margin of error adalah: " + e.toFixed(3);
+}
+</script>
+
+</body>
+</html>
